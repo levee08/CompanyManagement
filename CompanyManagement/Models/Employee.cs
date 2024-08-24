@@ -25,7 +25,7 @@ namespace CompanyManagement.Models
         public string BirthPlace { get; set; }
 
         [Required]
-        public DateTime BirtDate { get; set; }
+        public DateTime BirthDate { get; set; }
 
         [Required]
         [Phone]
