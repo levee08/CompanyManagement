@@ -8,8 +8,8 @@ namespace CompanyManagement.Logic.Interfaces
     {
         Task CreateAsync(Department department);
         Task<Department> ReadAsync(int id);
-        Task UpdateAsync(Department department);
-        Task DeleteAsync(int id);
+        Task<bool> UpdateAsync(Department department);
+        Task<bool> DeleteAsync(int id);
         Task<IEnumerable<Department>> GetAllDepartmentsAsync();
     }
 }

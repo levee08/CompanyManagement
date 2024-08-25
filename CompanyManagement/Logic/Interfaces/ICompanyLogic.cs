@@ -5,8 +5,8 @@ namespace CompanyManagement.Logic.Interfaces
     {
         Task CreateAsync(Company item);
         Task<Company> ReadAsync(int id);
-        Task UpdateAsync(Company item);
-        Task DeleteAsync(int id);
+        Task<bool> UpdateAsync(Company item);
+        Task<bool> DeleteAsync(int id);
         Task<IEnumerable<Company>> GetAllCompaniesAsync();
 
 

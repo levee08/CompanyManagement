@@ -23,15 +23,30 @@ public class CompanyLogic : ICompanyLogic
         return await _companyRepository.ReadAsync(id);
     }
 
-    public async Task UpdateAsync(Company item)
+    public async Task<bool> UpdateAsync(Company item)
     {
+        var entity = await _companyRepository.ReadAsync(item.Id);
+        if (entity == null)
+        {
+            return false;
+        }
+
         await _companyRepository.UpdateAsync(item);
+        return true;
     }
 
-    public async Task DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(int id)
     {
+        var entity = await _companyRepository.ReadAsync(id);
+        if (entity == null)
+        {
+            return false;
+        }
+
         await _companyRepository.DeleteAsync(id);
+        return true;
     }
+
 
     public async Task<IEnumerable<Company>> GetAllCompaniesAsync()
     {

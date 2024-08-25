@@ -25,19 +25,34 @@ namespace CompanyManagement.Logic
             return await _employeeRepository.ReadAsync(id);
         }
 
-        public async Task UpdateAsync(Employee employee)
+        public async Task<bool> UpdateAsync(Employee employee)
         {
-            await _employeeRepository.UpdateAsync(employee);
+            var entity = await _employeeRepository.ReadAsync(employee.Id);
+            if(entity==null)
+            {
+                return false;
+            }
+            await _employeeRepository.UpdateAsync(entity);
+            return true;
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
+            var entity = _employeeRepository.ReadAsync(id);
+            if(entity==null)
+            {
+                return false;
+            }
             await _employeeRepository.DeleteAsync(id);
+            return true;
         }
 
         public async Task<IEnumerable<Employee>> GetAllEmployeesAsync()
         {
             return await _employeeRepository.ReadAllAsync();
         }
+       
+
+      
     }
 }
