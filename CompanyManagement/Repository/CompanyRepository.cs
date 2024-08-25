@@ -10,14 +10,14 @@ namespace CompanyManagement.Repository
         {
         }
 
-        public override Company Read(int id)
+        public override async Task<Company> ReadAsync(int id)
         {
-            return ctx.Companies.FirstOrDefault(c => c.Id == id);
+            return await ctx.Companies.FindAsync(id);
         }
 
-        public override void Update(Company item)
+        public override async Task UpdateAsync(Company item)
         {
-            var entity = Read(item.Id);
+            var entity = await ReadAsync(item.Id);
             if (entity != null)
             {
                 entity.Name = item.Name;
@@ -25,7 +25,7 @@ namespace CompanyManagement.Repository
                 entity.Address = item.Address;
                 entity.FoundedDate = item.FoundedDate;
                 entity.AnnualRevenue = item.AnnualRevenue;
-                ctx.SaveChanges();
+                await ctx.SaveChangesAsync();
             }
         }
     }

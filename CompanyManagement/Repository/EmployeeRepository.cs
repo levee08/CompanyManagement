@@ -9,14 +9,14 @@ namespace CompanyManagement.Repository
         {
         }
 
-        public override Employee Read(int id)
+        public override async Task<Employee> ReadAsync(int id)
         {
-            return ctx.Employees.FirstOrDefault(e => e.Id == id);
+            return await ctx.Employees.FindAsync(id);
         }
 
-        public override void Update(Employee item)
+        public override async Task UpdateAsync(Employee item)
         {
-            var entity = Read(item.Id);
+            var entity = await ReadAsync(item.Id);
             if (entity != null)
             {
                 entity.Name = item.Name;
@@ -26,7 +26,7 @@ namespace CompanyManagement.Repository
                 entity.MobileNumber = item.MobileNumber;
                 entity.LandlineNumber = item.LandlineNumber;
                 entity.DepartmentId = item.DepartmentId;
-                ctx.SaveChanges();
+                await ctx.SaveChangesAsync();
             }
         }
     }

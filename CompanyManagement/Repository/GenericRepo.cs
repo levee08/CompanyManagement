@@ -5,29 +5,36 @@ namespace CompanyManagement.Repository
     public abstract class GenericRepo<T> : IRepository<T> where T : class
     {
 
-        protected AppDbContext ctx;
+        protected readonly AppDbContext ctx;
 
         public GenericRepo(AppDbContext ctx)
         {
             this.ctx = ctx;
         }
-        public void Create(T item)
+
+        public async Task CreateAsync(T item)
         {
-            ctx.Set<T>().Add(item);
-            ctx.SaveChanges();
+            await ctx.Set<T>().AddAsync(item);
+            await ctx.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            ctx.Set<T>().Remove(Read(id));
-            ctx.SaveChanges();
+            var entity = await ReadAsync(id);
+            if (entity != null)
+            {
+                ctx.Set<T>().Remove(entity);
+                await ctx.SaveChangesAsync();
+            }
         }
-        public IQueryable<T> ReadAll()
-        {
-            return ctx.Set<T>();
-        }
-        public abstract T Read(int id);
 
-        public abstract void Update(T item);
+        public async Task<IQueryable<T>> ReadAllAsync()
+        {
+            return await Task.FromResult(ctx.Set<T>());
+        }
+
+        public abstract Task<T> ReadAsync(int id);
+
+        public abstract Task UpdateAsync(T item);
     }
 }

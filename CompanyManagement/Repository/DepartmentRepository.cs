@@ -10,20 +10,20 @@ namespace CompanyManagement.Repository
         {
         }
 
-        public override Department Read(int id)
+        public override async Task<Department> ReadAsync(int id)
         {
-            return ctx.Departments.FirstOrDefault(d => d.Id == id);
+            return await ctx.Departments.FindAsync(id);
         }
 
-        public override void Update(Department item)
+        public override async Task UpdateAsync(Department item)
         {
-            var entity = Read(item.Id);
+            var entity = await ReadAsync(item.Id);
             if (entity != null)
             {
                 entity.Name = item.Name;
                 entity.Budget = item.Budget;
                 entity.CompanyId = item.CompanyId;
-                ctx.SaveChanges();
+                await ctx.SaveChangesAsync();
             }
         }
 
