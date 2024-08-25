@@ -20,7 +20,8 @@ namespace CompanyManagement.Models
         public decimal Budget { get; set; }
 
 
-        public List<Employee>? Employees = new List<Employee>();
+        public List<Employee>? Employees { get; set; } = new List<Employee>();
+
 
     }
 }

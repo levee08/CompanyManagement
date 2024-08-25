@@ -1,15 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using CompanyManagement.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using CompanyManagement.Models;
 
-namespace CompanyManagement.Logic.Interfaces
+public interface IEmployeeLogic
 {
-    public interface IEmployeeLogic
-    {
-        Task CreateAsync(Employee employee);
-        Task<Employee> ReadAsync(int id);
-        Task<bool> UpdateAsync(Employee employee);
-        Task<bool> DeleteAsync(int id);
-        Task<IEnumerable<Employee>> GetAllEmployeesAsync();
-    }
+    Task CreateAsync(Employee item);
+    Task<Employee> ReadAsync(int id);
+    Task<bool> UpdateAsync(Employee item);
+    Task<bool> DeleteAsync(int id);
+    Task<IEnumerable<Employee>> GetAllEmployeesAsync();
 }

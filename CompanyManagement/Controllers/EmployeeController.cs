@@ -1,5 +1,4 @@
-﻿using CompanyManagement.Logic.Interfaces;
-using CompanyManagement.Models;
+﻿using CompanyManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;

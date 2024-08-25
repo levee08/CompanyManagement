@@ -1,14 +1,12 @@
 ﻿using CompanyManagement.Models;
-namespace CompanyManagement.Logic.Interfaces
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+public interface ICompanyLogic
 {
-    public interface ICompanyLogic
-    {
-        Task CreateAsync(Company item);
-        Task<Company> ReadAsync(int id);
-        Task<bool> UpdateAsync(Company item);
-        Task<bool> DeleteAsync(int id);
-        Task<IEnumerable<Company>> GetAllCompaniesAsync();
-
-
-    }
+    Task CreateAsync(Company item);
+    Task<Company> ReadAsync(int id);
+    Task<bool> UpdateAsync(Company item);
+    Task<bool> DeleteAsync(int id);
+    Task<IEnumerable<Company>> GetAllCompaniesAsync();
 }

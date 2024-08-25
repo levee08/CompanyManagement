@@ -1,5 +1,4 @@
-﻿using CompanyManagement.Logic.Interfaces;
-using CompanyManagement.Models;
+﻿using CompanyManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -18,9 +17,14 @@ namespace CompanyManagement.Controllers
         }
 
         [HttpGet]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<Company>>> GetCompanies()
         {
             var companies = await _companyLogic.GetAllCompaniesAsync();
+            if (companies == null || !companies.Any())
+            {
+                return NotFound();
+            }
             return Ok(companies);
         }
 

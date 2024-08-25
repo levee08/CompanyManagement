@@ -1,32 +1,32 @@
 ﻿using CompanyManagement.Data;
 using CompanyManagement.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace CompanyManagement.Repository
+public class CompanyRepository : GenericRepo<Company>
 {
-    public class CompanyRepository:GenericRepo<Company>
+    public CompanyRepository(AppDbContext context) : base(context)
     {
+    }
 
-        public CompanyRepository(AppDbContext ctx) : base(ctx)
-        {
-        }
+    
+    public override async Task<Company> ReadAsync(int id)
+    {
+        return await _context.Companies
+       .Include(c => c.Departments) 
+           .ThenInclude(d => d.Employees) 
+       .FirstOrDefaultAsync(c => c.Id == id);
 
-        public override async Task<Company> ReadAsync(int id)
-        {
-            return await ctx.Companies.FindAsync(id);
-        }
+    }
 
-        public override async Task UpdateAsync(Company item)
-        {
-            var entity = await ReadAsync(item.Id);
-            if (entity != null)
-            {
-                entity.Name = item.Name;
-                entity.TaxNumber = item.TaxNumber;
-                entity.Address = item.Address;
-                entity.FoundedDate = item.FoundedDate;
-                entity.AnnualRevenue = item.AnnualRevenue;
-                await ctx.SaveChangesAsync();
-            }
-        }
+
+    public override async Task<IQueryable<Company>> ReadAllAsync()
+    {
+        return await Task.FromResult(
+        _context.Companies
+        .Include(c => c.Departments) 
+            .ThenInclude(d => d.Employees)
+    );
     }
 }

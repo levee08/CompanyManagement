@@ -1,9 +1,9 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using CompanyManagement.Data;
 using CompanyManagement.Models;
 using CompanyManagement.Repository;
-using CompanyManagement.Logic.Interfaces;
-using CompanyManagement.Logic;
+
+
 
 namespace CompanyManagement
 {
@@ -14,6 +14,12 @@ namespace CompanyManagement
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddControllers()
+       .AddJsonOptions(options =>
+       {
+           options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+           options.JsonSerializerOptions.WriteIndented = true;
+       });
 
             builder.Services.AddControllers();
 
@@ -32,6 +38,14 @@ namespace CompanyManagement
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                dbContext.Database.Migrate();
+            }
+           
+
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

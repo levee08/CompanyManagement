@@ -1,5 +1,4 @@
-﻿using CompanyManagement.Logic.Interfaces;
-using CompanyManagement.Models;
+﻿using CompanyManagement.Models;
 using CompanyManagement.Repository;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -46,7 +45,6 @@ public class CompanyLogic : ICompanyLogic
         await _companyRepository.DeleteAsync(id);
         return true;
     }
-
 
     public async Task<IEnumerable<Company>> GetAllCompaniesAsync()
     {

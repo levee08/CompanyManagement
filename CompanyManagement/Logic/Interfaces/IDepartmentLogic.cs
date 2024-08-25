@@ -1,15 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using CompanyManagement.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using CompanyManagement.Models;
 
-namespace CompanyManagement.Logic.Interfaces
+public interface IDepartmentLogic
 {
-    public interface IDepartmentLogic
-    {
-        Task CreateAsync(Department department);
-        Task<Department> ReadAsync(int id);
-        Task<bool> UpdateAsync(Department department);
-        Task<bool> DeleteAsync(int id);
-        Task<IEnumerable<Department>> GetAllDepartmentsAsync();
-    }
+    Task CreateAsync(Department item);
+    Task<Department> ReadAsync(int id);
+    Task<bool> UpdateAsync(Department item);
+    Task<bool> DeleteAsync(int id);
+    Task<IEnumerable<Department>> GetAllDepartmentsAsync();
 }
