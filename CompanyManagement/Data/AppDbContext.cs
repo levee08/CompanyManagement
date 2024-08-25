@@ -71,7 +71,7 @@ namespace CompanyManagement.Data
                 new Employee { Id = 10, Name = "Jack Taylor", Address = "110 Main St", BirthPlace = "City J", BirthDate = new DateTime(2004, 10, 10), MobileNumber = "123-456-7899",  DepartmentId = 5 }
             );
 
-            Console.WriteLine("Seed data has been applied.");
+         
         }
     }
 }

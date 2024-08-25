@@ -1,6 +1,8 @@
 ﻿using CompanyManagement.Models;
 using CompanyManagement.Repository;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 
 public class CompanyLogic : ICompanyLogic
@@ -12,9 +14,17 @@ public class CompanyLogic : ICompanyLogic
         _companyRepository = companyRepository;
     }
 
-    public async Task CreateAsync(Company item)
+    public async Task<bool> CreateAsync(Company item)
     {
+       
+        var existingCompanies = await _companyRepository.ReadAllAsync();
+        if (existingCompanies.Any(c => c.Name == item.Name))
+        {
+            return false; 
+        }
+
         await _companyRepository.CreateAsync(item);
+        return true;
     }
 
     public async Task<Company> ReadAsync(int id)

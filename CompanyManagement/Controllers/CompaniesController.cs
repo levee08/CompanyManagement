@@ -43,7 +43,12 @@ namespace CompanyManagement.Controllers
         [HttpPost]
         public async Task<ActionResult<Company>> PostCompany(Company company)
         {
-            await _companyLogic.CreateAsync(company);
+            var result = await _companyLogic.CreateAsync(company);
+            if (!result)
+            {
+                return Conflict("A company with the same name already exists.");
+            }
+
             return CreatedAtAction(nameof(GetCompany), new { id = company.Id }, company);
         }
 

@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using CompanyManagement.Data;
+﻿using CompanyManagement.Data;
 using CompanyManagement.Models;
 using CompanyManagement.Repository;
+using Microsoft.EntityFrameworkCore;
 
 
 
